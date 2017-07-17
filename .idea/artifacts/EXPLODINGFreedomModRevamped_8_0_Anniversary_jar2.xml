@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="EXPLODINGFreedomModRevamped_8.0_Anniversary:jar2">
+    <output-path>$PROJECT_DIR$/out/artifacts/EXPLODINGFreedomModRevamped_8_0_Anniversary_jar2</output-path>
+    <root id="archive" name="EXPLODINGFreedomModRevamped_8.0_Anniversary.jar">
+      <element id="library" level="project" name="src" />
+      <element id="module-output" name="EXPLODINGFreedomModRevamped_8.0_Anniversary" />
+    </root>
+  </artifact>
+</component>
