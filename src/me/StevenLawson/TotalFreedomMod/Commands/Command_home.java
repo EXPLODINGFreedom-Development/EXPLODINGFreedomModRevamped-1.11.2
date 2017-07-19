@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 @CommandPermissions(level = AdminLevel.ALL, source = SourceType.ONLY_IN_GAME)
 @CommandParameters(description = "Go to your set home", usage = "/<command> <home>")
@@ -19,7 +20,7 @@ public class Command_home extends TFM_Command
     @Override
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-        File file = new File("plugins/EXPLODINGFreedomModRevamped/Data", sender + ".yml");
+        File file = new File("plugins/EXPLODINGFreedomModRevamped/Data", sender.getName() + ".yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
         Player p = (Player) sender;
         if (p.isOp())
@@ -39,7 +40,7 @@ public class Command_home extends TFM_Command
                     loc.setPitch((float) pitch);
                     loc.setYaw((float) yaw);
                     EXPLODINGFreedomMod.back.put(p.getName(), loc);
-                    p.teleport(loc);
+                    p.teleport(loc, PlayerTeleportEvent.TeleportCause.COMMAND);
                     p.sendMessage("§4§lEXPLODINGFreedom§e: §bTeleporting to player-home §c" + args[0] + "§b.");
                 }
                 else

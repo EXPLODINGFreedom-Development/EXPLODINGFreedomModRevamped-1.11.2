@@ -4,8 +4,11 @@ import me.StevenLawson.TotalFreedomMod.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
+import me.StevenLawson.TotalFreedomMod.Config.TFM_ConfigEntry;
+import me.StevenLawson.TotalFreedomMod.Config.TFM_MainConfig;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -18,7 +21,7 @@ public class EFMR_Builder
     private Date lastLogin;
     private boolean isActivated;
 
-    public EFMR_Builder(UUID uuid, String lastLoginName, Date lastLogin, String loginMessage, boolean isTelnetAdmin, boolean isActivated)
+    public EFMR_Builder(UUID uuid, String lastLoginName, Date lastLogin, String loginMessage, boolean isActivated)
     {
         this.uuid = uuid;
         this.lastLoginName = lastLoginName;
@@ -36,11 +39,10 @@ public class EFMR_Builder
         this.lastLogin = TFM_Util.stringToDate(section.getString("last_login", TFM_Util.dateToString(new Date(0L))));
         this.loginMessage = section.getString("custom_login_message", "");
         this.isActivated = section.getBoolean("is_activated", true);
-    }
-
-    EFMR_Builder(UUID uuid, String name, Date date, String string, boolean b, boolean b0, boolean b1)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (Iterator<?> it = TFM_MainConfig.getList(TFM_ConfigEntry.NOADMIN_IPS).iterator(); it.hasNext();)
+        {
+            this.ips.remove((String) it.next());
+        }
     }
 
     @Override
@@ -92,6 +94,11 @@ public class EFMR_Builder
         {
             ips.remove(ip);
         }
+    }
+
+    public void clearIPs()
+    {
+        this.ips.clear();
     }
 
     public Date getLastLogin()

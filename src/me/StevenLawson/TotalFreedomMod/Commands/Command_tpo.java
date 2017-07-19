@@ -10,6 +10,7 @@ import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 @CommandPermissions(level = AdminLevel.ALL, source = SourceType.ONLY_IN_GAME)
 @CommandParameters(description = "Teleport to a player. This command overrides /tptoggle.", aliases = "teleport", usage = "/<command> <playername> <player2>")
@@ -32,11 +33,12 @@ public class Command_tpo extends TFM_Command
             }
             else
             {
-                Location targetPlayerLocation = targetPlayer.getLocation();
-                String targetPlayerName = targetPlayer.getDisplayName();
-                player.teleport(Bukkit.getServer().getPlayer(args[0]).getLocation());
+                Player target = sender.getServer().getPlayer(args[0]);
+                Location targetPlayerLocation = target.getLocation();
                 EXPLODINGFreedomMod.back.put(player.getName(), player.getLocation());
-                player.sendMessage(ChatColor.YELLOW + "§4§lEXPLODINGFreedom§e: §bTeleporting to §c" + targetPlayerName + "§b.");
+                player.teleport(targetPlayerLocation, PlayerTeleportEvent.TeleportCause.COMMAND);
+                player.teleport(targetPlayerLocation, PlayerTeleportEvent.TeleportCause.COMMAND);
+                player.sendMessage(ChatColor.YELLOW + "§4§lEXPLODINGFreedom§e: §bTeleporting to §c" + target.getDisplayName() + "§b.");
             }
             return true;
         }
@@ -56,9 +58,9 @@ public class Command_tpo extends TFM_Command
             else
             {
                 Location targetPlayerLocation = targetPlayer.getLocation();
-                firstPlayer.teleport(targetPlayerLocation);
-                firstPlayer.teleport(Bukkit.getServer().getPlayer(args[1]).getLocation());
                 EXPLODINGFreedomMod.back.put(firstPlayer.getName(), firstPlayer.getLocation());
+                firstPlayer.teleport(targetPlayerLocation, PlayerTeleportEvent.TeleportCause.COMMAND);
+                firstPlayer.teleport(targetPlayerLocation, PlayerTeleportEvent.TeleportCause.COMMAND);
                 sender.sendMessage(ChatColor.YELLOW + "§4§lEXPLODINGFreedom§e: §bTeleporting §c" + firstPlayer.getDisplayName() + " §bto §c" + targetPlayer.getDisplayName() + "§b.");
                 firstPlayer.sendMessage(ChatColor.YELLOW + "§4§lEXPLODINGFreedom§e: §bPlayer §c" + player.getDisplayName() + " §bteleported you to §c" + targetPlayer.getDisplayName() + "§b.");
             }

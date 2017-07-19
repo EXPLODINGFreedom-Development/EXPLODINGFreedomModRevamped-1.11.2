@@ -34,12 +34,12 @@ server:
  # /ai and /admininfo usage. (if set to false, players cant do /ai or /admininfo. (used to denote admin application freezes.)
   applications_enabled: false
   
- #Player TabList settings. Change what appears above and below the player tab list.
+ #Player TabList settings. Change what appears above and below the player tab list. Use '&' for colour codes.
   # Header = Top 
-tablist_header: '&4&l>&1&l-&4&l>&eWelcome to &4EXPLODINGFreedom &bAll-OP&e!&4&l<&1&l-&4&l<'
+tablist_header: '§4§l>§1§l-§4§l>§eWelcome to §4EXPLODINGFreedom §bAll-OP§e!§4§l<§1§l-§4l<'
    # Footer = Bottom    
-tablist_footer: '&c&kiii&eInvite your friends using &bexplodingfreedom.fadehost.com&e!&c&kiii'
-#VoteShop configuration (WIP)
+tablist_footer: '§c§kiii§eInvite your friends using §bplay.explodingfreedom.us.to§e!§c§kiii'
+#VoteShop configurati2n (WIP)
  #If you wish to have a shop were players can use currency given by voting, keep this enabled.
 voteshop:
     enabled: true

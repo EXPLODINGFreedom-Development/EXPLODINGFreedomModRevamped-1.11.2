@@ -21,7 +21,7 @@ public class Command_homes extends TFM_Command
         {
             if (args.length == 0)
             {
-                File file = new File("plugins/EXPLODINGFreedomModRevamped/Data", sender + ".yml");
+                File file = new File("plugins/EXPLODINGFreedomModRevamped/Data", sender.getName() + ".yml");
                 FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
                 int i = 0;
                 p.sendMessage("§4§lEXPLODINGFreedom§e: §bYour Homes:");

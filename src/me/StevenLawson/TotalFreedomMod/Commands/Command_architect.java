@@ -2,6 +2,7 @@ package me.StevenLawson.TotalFreedomMod.Commands;
 
 import com.efdevelopment.EXPLODINGFreedomModRevamped.EFMR_Builder;
 import com.efdevelopment.EXPLODINGFreedomModRevamped.EFMR_BuilderList;
+import me.StevenLawson.TotalFreedomMod.Player.TFM_Scoreboard;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
 import org.apache.commons.lang3.StringUtils;
@@ -127,7 +128,6 @@ public class Command_architect extends TFM_Command
 
             TFM_Util.adminAction(sender.getName(), "Removing " + targetName + " from the Builder list", true);
             EFMR_BuilderList.removeSuperadmin(Bukkit.getOfflinePlayer(targetName));
-
             return true;
         }
         return false;

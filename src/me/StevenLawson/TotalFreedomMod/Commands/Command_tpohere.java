@@ -10,6 +10,7 @@ import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 @CommandPermissions(level = AdminLevel.SUPER, source = SourceType.ONLY_IN_GAME)
 @CommandParameters(description = "Teleport all players to you. (Overrides tptoggle)", usage = "/<command>")
@@ -29,8 +30,7 @@ public class Command_tpohere extends TFM_Command
         else
         {
             Location locationToTeleport = player.getLocation();
-            firstPlayer.teleport(locationToTeleport);
-            firstPlayer.teleport(Bukkit.getServer().getPlayer(args[0]).getLocation());
+            firstPlayer.teleport(locationToTeleport, PlayerTeleportEvent.TeleportCause.COMMAND);
             EXPLODINGFreedomMod.back.put(firstPlayer.getName(), player.getLocation());
             player.sendMessage(ChatColor.YELLOW + "§4§lEXPLODINGFreedom§e: §b" + "Teleporting §c" + firstPlayer.getName() + " §bto you.");
         }

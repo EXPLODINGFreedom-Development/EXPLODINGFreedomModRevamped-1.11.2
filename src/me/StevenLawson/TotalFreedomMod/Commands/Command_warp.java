@@ -13,6 +13,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 @CommandPermissions(level = AdminLevel.ALL, source = SourceType.ONLY_IN_GAME)
 @CommandParameters(description = "Go to a warp", usage = "/<command> <warp>")
@@ -41,7 +42,8 @@ public class Command_warp extends TFM_Command
                     loc.setPitch((float) pitch);
                     loc.setYaw((float) yaw);
                     EXPLODINGFreedomMod.back.put(p.getName(), loc);
-                    p.teleport(loc);
+                    p.teleport(loc, PlayerTeleportEvent.TeleportCause.COMMAND);
+                    p.teleport(loc, PlayerTeleportEvent.TeleportCause.COMMAND);
                     p.sendMessage("§4§lEXPLODINGFreedom§e: §bWarping to §c" + args[0] + "§b.");
                 }
                 else

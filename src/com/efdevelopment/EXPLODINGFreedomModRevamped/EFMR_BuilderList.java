@@ -29,6 +29,7 @@ public class EFMR_BuilderList
     private static final Map<UUID, EFMR_Builder> builderList;
     private static final Set<UUID> builderUUIDs;
     private static final Set<String> builderIps;
+    private static boolean canSuperIp;
 
     static
     {
@@ -141,7 +142,7 @@ public class EFMR_BuilderList
     public static void updateIndexLists()
     {
         builderUUIDs.clear();
-        
+
         builderIps.clear();
 
         for (EFMR_Builder admin : builderList.values())
@@ -153,16 +154,17 @@ public class EFMR_BuilderList
 
             final UUID uuid = admin.getUniqueId();
 
-           builderUUIDs.add(uuid);
+            builderUUIDs.add(uuid);
 
             for (String ip : admin.getIps())
             {
                 builderIps.add(ip);
             }
 
-        EFMR_BuilderWorld.getInstance().wipeAccessCache();
+            EFMR_BuilderWorld.getInstance().wipeAccessCache();
+        }
     }
-    }
+
     private static void parseOldConfig(TFM_Config config)
     {
         TFM_Log.info("Old builder configuration found, parsing...");
@@ -279,12 +281,9 @@ public class EFMR_BuilderList
                     }
                 }
             }
-            else
+            else if (builder.getIps().contains(needleIp))
             {
-                if (builder.getIps().contains(needleIp))
-                {
-                    return builder;
-                }
+                return builder;
             }
         }
         return null;
@@ -430,14 +429,18 @@ public class EFMR_BuilderList
             TFM_Log.severe("Could not retrieve IP!");
             return;
         }
-
+        if (!canSuperIp)
+        {
+            TFM_Log.warning("Could not add builder: " + TFM_Util.formatPlayer(player));
+            TFM_Log.warning("IP " + ip + " may not be supered.");
+            return;
+        }
+        
         final EFMR_Builder builder = new EFMR_Builder(
                 uuid,
                 player.getName(),
                 new Date(),
                 "",
-                false,
-                false,
                 true);
         builder.addIp(ip);
 
@@ -459,7 +462,7 @@ public class EFMR_BuilderList
         }
 
         final EFMR_Builder builder = builderList.get(uuid);
-       builder.setActivated(false);
+        builder.setActivated(false);
 
         save();
         updateIndexLists();

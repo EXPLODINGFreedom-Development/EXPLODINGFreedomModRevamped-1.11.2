@@ -1,12 +1,19 @@
 package me.StevenLawson.TotalFreedomMod.Commands;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import me.StevenLawson.TotalFreedomMod.Admin.TFM_AdminList;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import me.StevenLawson.TotalFreedomMod.World.TFM_AdminWorld;
+import me.StevenLawson.TotalFreedomMod.World.TFM_MinigameWorld;
+import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 @CommandPermissions(level = AdminLevel.OP, source = SourceType.BOTH)
 @CommandParameters(description = "Go to the AdminWorld.", usage = "/<command> [guest < list | purge | add <player> | remove <player> > | time <morning | noon | evening | night> | weather <off | on | storm>]")
@@ -70,19 +77,26 @@ public class Command_adminworld extends TFM_Command
                     if (adminWorld == null || sender_p.getWorld() == adminWorld)
                     {
                         playerMsg("Going to the §aOverworld§7.");
-                        sender_p.teleport(server.getWorlds().get(0).getSpawnLocation());
+                        //sender_p.teleport(server.getWorlds().get(0).getSpawnLocation());
+                        sender_p.teleport(server.getWorlds().get(0).getSpawnLocation(), PlayerTeleportEvent.TeleportCause.COMMAND);
+                    }
+                    else if (TFM_AdminWorld.getInstance().canAccessWorld(sender_p))
+                    {
+                        playerMsg("Going to the §aAdminWorld§7.");
+                        Location playerloc = sender_p.getLocation();
+                        Chunk chunk = sender_p.getWorld().getChunkAt(playerloc);
+                        adminWorld = TFM_AdminWorld.getInstance().getWorld();
+                        int x = Integer.parseInt("0");
+                        int y = Integer.parseInt("50");
+                        int z = Integer.parseInt("0");
+                        playerloc = new Location(adminWorld, x, y, z);
+                        sender_p.teleport(playerloc, PlayerTeleportEvent.TeleportCause.COMMAND);
+
+                        //TFM_AdminWorld.getInstance().sendToWorld(sender_p);
                     }
                     else
                     {
-                        if (TFM_AdminWorld.getInstance().canAccessWorld(sender_p))
-                        {
-                            playerMsg("Going to the §aAdminWorld§7.");
-                            TFM_AdminWorld.getInstance().sendToWorld(sender_p);
-                        }
-                        else
-                        {
-                            playerMsg("You don't have permission to access the AdminWorld.");
-                        }
+                        playerMsg("You don't have permission to access the AdminWorld.");
                     }
 
                     break;
@@ -206,6 +220,10 @@ public class Command_adminworld extends TFM_Command
         catch (PermissionDeniedException ex)
         {
             sender.sendMessage(ex.getMessage());
+        }
+        catch (Exception ex)
+        {
+            Logger.getLogger(Command_adminworld.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return true;

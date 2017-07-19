@@ -1,6 +1,7 @@
 package me.StevenLawson.TotalFreedomMod.Commands;
 
 import me.StevenLawson.TotalFreedomMod.Admin.TFM_AdminList;
+import me.StevenLawson.TotalFreedomMod.Player.TFM_Scoreboard;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
 import org.bukkit.command.Command;
@@ -18,6 +19,7 @@ public class Command_djump extends TFM_Command
         {
             TFM_Util.setDoubleJumper(sender_p, !TFM_Util.isDoubleJumper(sender_p));
             TFM_Util.playerMsg(sender_p, "Double Jump mode set to " + TFM_Util.isDoubleJumper(sender_p));
+            TFM_Scoreboard.updateStats(sender_p);
         }
         if (args.length == 1 && TFM_AdminList.isSuperAdmin(sender))
         {
@@ -31,6 +33,7 @@ public class Command_djump extends TFM_Command
             {
                 TFM_Util.setDoubleJumper(player, !TFM_Util.isDoubleJumper(player));
                 TFM_Util.playerMsg(player, "Double Jump mode of " + player.getName() + " set to " + TFM_Util.isDoubleJumper(player));
+                TFM_Scoreboard.updateStats(player);
             }
         }
         return true;

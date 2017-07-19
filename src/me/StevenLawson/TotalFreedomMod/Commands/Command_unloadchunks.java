@@ -20,8 +20,7 @@ public class Command_unloadchunks extends TFM_Command
         if (senderIsConsole)
         {
             numChunks = server.getWorlds().stream().map((world) -> unloadUnusedChunks(world)).reduce(numChunks, Integer::sum);
-            sender.sendMessage(ChatColor.GRAY + "Unloading all unused chunks\n"
-                    + numChunks + " chunks unloaded");
+            sender.sendMessage(ChatColor.GRAY + "Unloading all unused chunks\n" + numChunks + " chunks unloaded");
             return true;
         } // end senderIsConsole
 

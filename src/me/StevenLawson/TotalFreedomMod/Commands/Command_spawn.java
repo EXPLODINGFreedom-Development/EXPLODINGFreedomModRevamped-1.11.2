@@ -9,6 +9,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 @CommandPermissions(level = AdminLevel.ALL, source = SourceType.BOTH, blockHostConsole = false)
 @CommandParameters(description = "Sets the Global Spawnpoint.", usage = "/<command>")
@@ -43,7 +44,7 @@ public class Command_spawn extends TFM_Command
         loc.setWorld(world);
 
         p.sendMessage("§3Teleporting...");
-        p.teleport(loc);
+        p.teleport(loc, PlayerTeleportEvent.TeleportCause.COMMAND);
       }
       else
       {

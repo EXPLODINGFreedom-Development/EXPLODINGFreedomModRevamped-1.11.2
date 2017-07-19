@@ -1,5 +1,6 @@
 package me.StevenLawson.TotalFreedomMod.Commands;
 
+import me.StevenLawson.TotalFreedomMod.Player.TFM_Scoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -26,6 +27,7 @@ public class Command_heal extends TFM_Command
             p.setFireTicks(0);
             p.setFoodLevel(20);
             p.setSaturation(20.0F);
+            TFM_Scoreboard.updateStats(p);
             sender.sendMessage(ChatColor.RED + "§4§lEXPLODINGFreedom§e: §bYou have healed §c" + p.getDisplayName() + "§b");
             return true;
         }
@@ -41,6 +43,7 @@ public class Command_heal extends TFM_Command
             target.setFireTicks(0);
             target.setFoodLevel(20);
             target.setSaturation(20.0F);
+            TFM_Scoreboard.updateStats(target);
             for (PotionEffect potion_effect : target.getActivePotionEffects())
             {
                 target.removePotionEffect(potion_effect.getType());

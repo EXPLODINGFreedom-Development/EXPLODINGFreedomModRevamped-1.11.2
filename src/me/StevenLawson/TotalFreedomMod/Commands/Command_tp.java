@@ -10,6 +10,8 @@ import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 @CommandPermissions(level = AdminLevel.ALL, source = SourceType.ONLY_IN_GAME)
 @CommandParameters(description = "Teleport to a player.", aliases = "teleport", usage = "/<command> <playername> <player2>")
@@ -17,7 +19,7 @@ public class Command_tp extends TFM_Command
 {
     Command_tptoggle x = new Command_tptoggle();
     HashMap<Player, ArrayList<Block>> tptoggle = x.getTpToggle();
-   
+
     @Override
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -32,13 +34,12 @@ public class Command_tp extends TFM_Command
             }
             else if (!Command_tptoggle.getTpToggle().containsKey(Bukkit.getServer().getPlayer(args[0])))
             {
-                Location targetPlayerLocation = targetPlayer.getLocation();
-                Player p = (Player) sender;
-                String targetPlayerName = targetPlayer.getDisplayName();
-                player.teleport(targetPlayerLocation);
-                player.teleport(Bukkit.getServer().getPlayer(args[0]).getLocation());
-                EXPLODINGFreedomMod.back.put(p.getName(), p.getLocation());
-                player.sendMessage(ChatColor.YELLOW + "§4§lEXPLODINGFreedom§e: §bTeleporting to §c" + targetPlayerName + "§b.");
+                Player target = sender.getServer().getPlayer(args[0]);
+                Location targetPlayerLocation = target.getLocation();
+                EXPLODINGFreedomMod.back.put(player.getName(), player.getLocation());
+                player.teleport(targetPlayerLocation, PlayerTeleportEvent.TeleportCause.COMMAND);
+                player.teleport(targetPlayerLocation, PlayerTeleportEvent.TeleportCause.COMMAND);
+                player.sendMessage(ChatColor.YELLOW + "§4§lEXPLODINGFreedom§e: §bTeleporting to §c" + target.getDisplayName() + "§b.");
             }
             else
             {
@@ -65,8 +66,9 @@ public class Command_tp extends TFM_Command
                 else
                 {
                     Location targetPlayerLocation = targetPlayer.getLocation();
-                    firstPlayer.teleport(Bukkit.getServer().getPlayer(args[1]).getLocation());
-                    EXPLODINGFreedomMod.back.put(firstPlayer.getName(), firstPlayer.getLocation());
+                    EXPLODINGFreedomMod.back.put(firstPlayer.getName(), targetPlayer.getLocation());
+                    firstPlayer.teleport(targetPlayerLocation, PlayerTeleportEvent.TeleportCause.COMMAND);
+                    firstPlayer.teleport(targetPlayerLocation, PlayerTeleportEvent.TeleportCause.COMMAND);
                     sender.sendMessage(ChatColor.YELLOW + "§4§lEXPLODINGFreedom§e: §bTeleporting §c" + firstPlayer.getDisplayName() + " §bto §c" + targetPlayer.getDisplayName() + "§b.");
                     firstPlayer.sendMessage(ChatColor.YELLOW + "§4§lEXPLODINGFreedom§e: §bPlayer §c" + player.getDisplayName() + " §bteleported you to §c" + targetPlayer.getDisplayName() + "§b.");
                 }

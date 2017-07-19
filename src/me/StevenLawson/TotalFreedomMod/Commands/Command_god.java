@@ -16,6 +16,10 @@ public class Command_god extends TFM_Command
         if (args.length == 0)
         {
             TFM_Util.setGod(sender_p, !TFM_Util.inGod(sender_p));
+            sender_p.setHealth(20);
+            sender_p.setFireTicks(0);
+            sender_p.setFoodLevel(20);
+            sender_p.setSaturation(20.0F);
             TFM_Util.playerMsg(sender_p, "God mode set to " + TFM_Util.inGod(sender_p));
         }
         if (args.length == 1 && TFM_AdminList.isSuperAdmin(sender))
@@ -29,6 +33,10 @@ public class Command_god extends TFM_Command
             else
             {
                 TFM_Util.setGod(player, !TFM_Util.inGod(player));
+                player.setHealth(20);
+                player.setFireTicks(0);
+                player.setFoodLevel(20);
+                player.setSaturation(20.0F);
                 TFM_Util.playerMsg(player, "God mode of " + player.getName() + " set to " + TFM_Util.inGod(player));
             }
         }

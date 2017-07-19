@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 @CommandPermissions(level = AdminLevel.ALL, source = SourceType.ONLY_IN_GAME)
 @CommandParameters(description = "Go to your last death point.", usage = "/<command>")
@@ -26,9 +27,8 @@ public class Command_back extends TFM_Command
         {
             Player p = (Player) sender;
             p.sendMessage("§4§lEXPLODINGFreedom§e: §bTeleporting...");
-            p.teleport(EXPLODINGFreedomMod.back.get(p.getName()));
-            p.teleport((Location)EXPLODINGFreedomMod.back.get(p.getName()));
-            
+            p.teleport((Location) EXPLODINGFreedomMod.back.get(p.getName()), PlayerTeleportEvent.TeleportCause.COMMAND);
+
         }
         return true;
     }

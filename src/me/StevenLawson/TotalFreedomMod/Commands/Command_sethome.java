@@ -25,7 +25,7 @@ public class Command_sethome extends TFM_Command
     @Override
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
         {
-        File file = new File("plugins/EXPLODINGFreedomModRevamped/Data", sender + ".yml");
+        File file = new File("plugins/EXPLODINGFreedomModRevamped/Data", sender.getName() + ".yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
             Player p = (Player) sender;
                 if (args.length == 1)

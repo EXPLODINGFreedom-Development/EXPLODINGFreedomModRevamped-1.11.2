@@ -1,5 +1,6 @@
 package me.StevenLawson.TotalFreedomMod.Player;
 
+import com.efdevelopment.EXPLODINGFreedomModRevamped.EFMR_BuilderList;
 import me.StevenLawson.TotalFreedomMod.Rank.TFM_PlayerRank;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
@@ -33,7 +34,7 @@ public class TFM_Scoreboard
             }
             String builderstring = "No";
             String djumpstring = "No";
-            if (TFM_Util.BUILDERS.contains(name))
+            if (EFMR_BuilderList.isSuperBuilder(player))
             {
                 builderstring = "Yes";
             }

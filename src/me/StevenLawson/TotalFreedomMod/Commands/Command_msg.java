@@ -22,7 +22,7 @@ public class Command_msg extends TFM_Command
         if (args.length < 2)
         {
             sender.sendMessage(ChatColor.RED + "§4§lEXPLODINGFreedom§e: §bUsage: /msg <player> <message>");
-            return false;
+            return true;
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i < args.length; i++)

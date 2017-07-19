@@ -14,7 +14,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-@CommandPermissions(level = AdminLevel.OP, source = SourceType.ONLY_IN_GAME)
+@CommandPermissions(level = AdminLevel.ALL, source = SourceType.ONLY_IN_GAME)
 @CommandParameters(description = "Give yourself a nickname.", usage = "/<command> <<nick> | off>")
 public class Command_nick extends TFM_Command
 {
@@ -24,20 +24,6 @@ public class Command_nick extends TFM_Command
         File file = new File("plugins/EXPLODINGFreedomModRevamped/Data", "nicknames.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
         Player p = (Player) sender;
-        if ("off".equals(args[0]))
-        {
-            p.getPlayer().setDisplayName(cfg.getString(p.getPlayer().getName()));
-            cfg.set(p.getName(), p.getName());
-            try
-            {
-                cfg.save(file);
-            }
-            catch (IOException ex)
-            {
-                Logger.getLogger(Command_nick.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            return true;
-        }
         if (args.length == 0)
         {
             p.sendMessage(ChatColor.RED + "You did not specify a nickname!");
@@ -56,8 +42,7 @@ public class Command_nick extends TFM_Command
 
         p.sendMessage(ChatColor.GREEN + "You have changed your nickname to " + nick);
         cfg.set(p.getName(), nick);
-        p.setDisplayName(cfg.getString(p.getPlayer().getName()));
-        p.setCustomName(cfg.getString(p.getPlayer().getName()));
+        p.setDisplayName(nick);
         try
         {
             cfg.save(file);
@@ -65,6 +50,21 @@ public class Command_nick extends TFM_Command
         catch (IOException ex)
         {
             Logger.getLogger(Command_nick.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if ("off".equals(args[0]))
+        {
+            p.sendMessage(ChatColor.GREEN + "You no longer have a nickname.");
+            p.getPlayer().setDisplayName(cfg.getString(p.getPlayer().getName()));
+            cfg.set(p.getName(), p.getName());
+            try
+            {
+                cfg.save(file);
+            }
+            catch (IOException ex)
+            {
+                Logger.getLogger(Command_nick.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return true;
         }
         return true;
     }

@@ -23,9 +23,9 @@ public class Command_jumppads extends TFM_Command
         {
             if (args[0].equalsIgnoreCase("info"))
             {
-                playerMsg("Jumppads: " + (TFM_Jumppads.getMode().isOn() ? "Enabled" : "Disabled"), ChatColor.BLUE);
-                playerMsg("Sideways: " + (TFM_Jumppads.getMode() == TFM_Jumppads.JumpPadMode.NORMAL_AND_SIDEWAYS ? "Enabled" : "Disabled"), ChatColor.BLUE);
-                playerMsg("Strength: " + (TFM_Jumppads.getStrength() * 10 - 1), ChatColor.BLUE);
+                playerMsg("Jumppads: " + (TFM_Jumppads.getMode().isOn() ? "§aEnabled" : "§cDisabled"), ChatColor.BLUE);
+                playerMsg("Sideways: §e" + (TFM_Jumppads.getMode() == TFM_Jumppads.JumpPadMode.NORMAL_AND_SIDEWAYS ? "§aEnabled" : "§cDisabled"), ChatColor.BLUE);
+                playerMsg("Strength: §e" + (TFM_Jumppads.getStrength() * 1000000 - 1), ChatColor.BLUE);
                 return true;
             }
 
@@ -74,14 +74,14 @@ public class Command_jumppads extends TFM_Command
                     return true;
                 }
 
-                if (strength > 100000 || strength < 1)
+                if (strength > 1000000 || strength < 1)
                 {
-                    playerMsg("Invalid Strength: The strength may be 1 through 10.");
+                    playerMsg("Invalid Strength: The strength may be 1 through 1,000,000.");
                     return true;
                 }
 
                 TFM_Util.adminAction(sender.getName(), "Setting Jumppads strength to: " + String.valueOf(strength), false);
-                TFM_Jumppads.setStrength((strength / 100000) + 0.10F);
+                TFM_Jumppads.setStrength((strength / 1000000) + 0.10F);
             }
             else
             {

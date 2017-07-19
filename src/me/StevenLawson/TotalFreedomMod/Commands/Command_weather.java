@@ -13,7 +13,7 @@ public class Command_weather extends TFM_Command
     @Override
     public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-        Player p = (Player)sender;
+        Player p = (Player) sender;
         if (args.length != 1)
         {
             p.sendMessage("§4§lEXPLODINGFreedom§e: §bUsage: /weather <clear|rain|storm>");
@@ -22,18 +22,24 @@ public class Command_weather extends TFM_Command
         if (args[0].equalsIgnoreCase("storm"))
         {
             p.getWorld().setStorm(true);
-            playerMsg("§6You set the weather to §cstorm §6in world §c" + p.getWorld(), ChatColor.GOLD);
+            playerMsg("§6You set the weather to §cstorm §6in world §c" + p.getWorld().getName(), ChatColor.GOLD);
         }
         else if (args[0].equalsIgnoreCase("rain"))
         {
             p.getWorld().setThundering(true);
-            playerMsg("§6You set the weather to §crain §6in world §c" + p.getWorld(), ChatColor.GOLD);
+            playerMsg("§6You set the weather to §crain §6in world §c" + p.getWorld().getName(), ChatColor.GOLD);
+        }
+        else if (args[0].equalsIgnoreCase("sun"))
+        {
+            p.getWorld().setStorm(false);
+            p.getWorld().setThundering(false);
+            playerMsg("§6You set the weather to §cclear §6in world §c" + p.getWorld().getName(), ChatColor.GOLD);
         }
         else if (args[0].equalsIgnoreCase("clear"))
         {
             p.getWorld().setStorm(false);
             p.getWorld().setThundering(false);
-            playerMsg("§6You set the weather to §cclear §6in world §c" + p.getWorld(), ChatColor.GOLD);
+            playerMsg("§6You set the weather to §cclear §6in world §c" + p.getWorld().getName(), ChatColor.GOLD);
         }
         return true;
     }

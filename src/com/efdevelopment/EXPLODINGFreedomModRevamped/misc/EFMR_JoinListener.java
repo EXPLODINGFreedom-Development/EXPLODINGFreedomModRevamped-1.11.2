@@ -45,7 +45,7 @@ public class EFMR_JoinListener implements Listener
         Player p = e.getPlayer();
         if (!p.hasPlayedBefore())
         {
-            Bukkit.broadcastMessage(ChatColor.LIGHT_PURPLE + "§1§l>§4§l-§1&l>§b§lWelcome §c" + p.getName() + " §d to §4EXPLODINGFreedom§b§l!§1§l<§4§l-§1§l<");
+            Bukkit.broadcastMessage(ChatColor.LIGHT_PURPLE + "§1§l>§4§l-§1§l>§b§lWelcome §c" + p.getName() + " §d to §4EXPLODINGFreedom§b§l!§1§l<§4§l-§1§l<");
             TFM_WorldEditBridge.setLimit(p, 2500);
         }
     }
